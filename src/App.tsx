@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { RecentImagesPage } from './pages/RecentImagesPage';
 import { CssBaseline } from '@material-ui/core';
