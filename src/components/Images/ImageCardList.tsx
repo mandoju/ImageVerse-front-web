@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { likeImage } from '../../ducks/image';
 import { Image } from '../../models/Image';
 import { ImageCard } from './ImageCard';
@@ -12,6 +13,7 @@ interface ImageCardListProps {
 export const ImageCardList = ({ images }: ImageCardListProps) => {
     const dispatch = useDispatch();
     const classes = useStyles();
+    const history = useHistory();
     return (
         <div className={classes.container}>
             {images.map((image) => {
