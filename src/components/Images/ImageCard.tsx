@@ -34,38 +34,45 @@ export const ImageCard = ({
 }: ImageCardProps) => {
     const classes = useStyles();
     return (
-        <Card className={classes.root}>
-            <CardHeader
-                avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                        R
-                    </Avatar>
-                }
-                title={title}
-                subheader={creationDate}
-            />
-            <CardMedia className={classes.media} image={imageUrl} title="Image title" />
-            <CardActions disableSpacing>
-                <IconButton aria-label="like" onClick={likePress}>
-                    <ThumbUpIcon />
-                </IconButton>
-                <Typography variant="subtitle1" color="inherit" noWrap>
-                    {likeCount}
-                </Typography>
-                <IconButton aria-label="dislike" onClick={dislikePress}>
-                    <ThumbDownIcon />
-                </IconButton>
-                <Typography variant="subtitle1" color="inherit" noWrap>
-                    {dislikeCount}
-                </Typography>
-            </CardActions>
-        </Card>
+        <div className={classes.root}>
+            <Card className={classes.card}>
+                <CardHeader
+                    avatar={
+                        <Avatar aria-label="recipe" className={classes.avatar}>
+                            R
+                        </Avatar>
+                    }
+                    title={title}
+                    subheader={creationDate}
+                />
+                <CardMedia className={classes.media} image={imageUrl} title="Image title" />
+                <CardActions disableSpacing>
+                    <IconButton aria-label="like" onClick={likePress}>
+                        <ThumbUpIcon />
+                    </IconButton>
+                    <Typography variant="subtitle1" color="inherit" noWrap>
+                        {likeCount}
+                    </Typography>
+                    <IconButton aria-label="dislike" onClick={dislikePress}>
+                        <ThumbDownIcon />
+                    </IconButton>
+                    <Typography variant="subtitle1" color="inherit" noWrap>
+                        {dislikeCount}
+                    </Typography>
+                </CardActions>
+            </Card>
+        </div>
     );
 };
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 345,
+        display: 'flex',
+        flex: 1,
+        justifyContent: 'center',
+    },
+    card: {
+        width: 345,
     },
     media: {
         height: 0,
