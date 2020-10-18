@@ -19,9 +19,19 @@ interface ImageCardProps {
     creationDate: string;
     likeCount: number;
     dislikeCount: number;
+    likePress?: () => void;
+    dislikePress?: () => void;
 }
 
-export const ImageCard = ({ title, imageUrl, creationDate, likeCount, dislikeCount }: ImageCardProps) => {
+export const ImageCard = ({
+    title,
+    imageUrl,
+    creationDate,
+    likeCount,
+    dislikeCount,
+    likePress,
+    dislikePress,
+}: ImageCardProps) => {
     const classes = useStyles();
     return (
         <Card className={classes.root}>
@@ -36,13 +46,13 @@ export const ImageCard = ({ title, imageUrl, creationDate, likeCount, dislikeCou
             />
             <CardMedia className={classes.media} image={imageUrl} title="Image title" />
             <CardActions disableSpacing>
-                <IconButton aria-label="like">
+                <IconButton aria-label="like" onClick={likePress}>
                     <ThumbUpIcon />
                 </IconButton>
                 <Typography variant="subtitle1" color="inherit" noWrap>
                     {likeCount}
                 </Typography>
-                <IconButton aria-label="dislike">
+                <IconButton aria-label="dislike" onClick={dislikePress}>
                     <ThumbDownIcon />
                 </IconButton>
                 <Typography variant="subtitle1" color="inherit" noWrap>
