@@ -5,4 +5,6 @@ export interface Image {
     likesCount: number;
     dislikesCount: number;
     creationDate: string;
+    liked?: boolean;
+    disliked?: boolean;
 }

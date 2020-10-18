@@ -23,7 +23,11 @@ interface ImageCardProps {
     dislikeCount: number;
     likePress?: () => void;
     dislikePress?: () => void;
+    liked?: boolean;
+    disliked?: boolean;
 }
+
+const buttonColor = (value?: boolean) => (value ? 'primary' : 'inherit');
 
 export const ImageCard = ({
     title,
@@ -33,6 +37,8 @@ export const ImageCard = ({
     dislikeCount,
     likePress,
     dislikePress,
+    liked,
+    disliked,
 }: ImageCardProps) => {
     const classes = useStyles();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -56,13 +62,13 @@ export const ImageCard = ({
                     onClick={() => setIsModalOpen(true)}
                 />
                 <CardActions disableSpacing>
-                    <IconButton aria-label="like" onClick={likePress}>
+                    <IconButton aria-label="like" color={buttonColor(liked)} onClick={likePress}>
                         <ThumbUpIcon />
                     </IconButton>
                     <Typography variant="subtitle1" color="inherit" noWrap>
                         {likeCount}
                     </Typography>
-                    <IconButton aria-label="dislike" onClick={dislikePress}>
+                    <IconButton aria-label="dislike" color={buttonColor(disliked)} onClick={dislikePress}>
                         <ThumbDownIcon />
                     </IconButton>
                     <Typography variant="subtitle1" color="inherit" noWrap>

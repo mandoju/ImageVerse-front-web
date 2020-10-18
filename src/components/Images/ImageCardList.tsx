@@ -34,6 +34,8 @@ export const ImageCardList = ({ images }: ImageCardListProps) => {
                                 }
                             }}
                             dislikePress={() => dispatch(likeImage({ image, type: 'dislike' }))}
+                            liked={image.liked}
+                            disliked={image.disliked}
                         />
                     </div>
                 );

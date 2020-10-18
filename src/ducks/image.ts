@@ -2,6 +2,7 @@ import { AxiosError } from 'axios';
 import { AnyAction } from 'redux';
 import { Image } from '../models/Image';
 import { ApiConn } from '../utils/apiConn';
+import { refreshToken } from '../utils/UserManager';
 
 const GET_IMAGES = 'get_images';
 const GET_IMAGES_SUCESS = 'get_images_sucess';
@@ -42,6 +43,7 @@ export const getImages = ({ pageIndex }: { pageIndex: number }) => {
     return async (dispatch: any) => {
         try {
             dispatch({ type: GET_IMAGES });
+            await refreshToken();
             const images = await ApiConn.get(`./images?pageIndex=${pageIndex}`);
             const payload = images.data.images;
             dispatch({ type: GET_IMAGES_SUCESS });
