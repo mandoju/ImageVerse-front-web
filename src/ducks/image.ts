@@ -68,3 +68,22 @@ export const likeImage = ({ image, type }: { image: Image; type: 'like' | 'disli
         }
     };
 };
+
+export const uploadImage = ({ title, image }: { title: string; image: File }) => {
+    return async (_: any) => {
+        try {
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('image', image);
+            await ApiConn.post(`./images`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+        } catch (error) {
+            if ((error as any).isAxiosError) {
+                // check to make sure type assertion is right
+                const e = error as AxiosError;
+                if (e.response?.status === 401) {
+                    return Promise.reject('unauthorized');
+                }
+            }
+        }
+    };
+};
