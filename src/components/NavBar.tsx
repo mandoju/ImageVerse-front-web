@@ -1,18 +1,31 @@
 import React from 'react';
-import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, makeStyles, Toolbar, Typography } from '@material-ui/core';
 import { SITE_NAME } from '../constants/Constants';
-
+import { GoogleLoginButton } from './Buttons/GoogleLoginButton';
+import { UploadImageButton } from './Buttons/UploadImageButton';
 export const NavBar = () => {
+    const classes = useStyles();
     return (
         <AppBar position="relative">
             <Toolbar>
-                <Typography variant="h6" color="inherit" noWrap>
+                <Typography variant="h6" color="inherit" className={classes.title}>
                     {SITE_NAME}
                 </Typography>
-                <Button variant={'contained'} color={'primary'}>
-                    Login
-                </Button>
+                <UploadImageButton />
+                <GoogleLoginButton />
             </Toolbar>
         </AppBar>
     );
 };
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+    title: {
+        flexGrow: 1,
+    },
+}));
