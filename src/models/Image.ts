@@ -1,6 +1,8 @@
 export interface Image {
+    id: number;
     title: string;
     url: string;
-    likeCount: number;
-    dislikeCount: number;
+    likesCount: number;
+    dislikesCount: number;
+    creationDate: string;
 }
