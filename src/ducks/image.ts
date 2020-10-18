@@ -1,5 +1,6 @@
 import { AnyAction } from 'redux';
 import { Image } from '../models/Image';
+import { ApiConn } from '../utils/apiConn';
 
 const GET_IMAGES = 'get_images';
 const GET_IMAGES_SUCESS = 'get_images_sucess';
@@ -34,4 +35,19 @@ export default (state = INITIAL_STATE, action: AnyAction): ImageState => {
         default:
             return state;
     }
+};
+
+export const getImages = ({ pageIndex }: { pageIndex: number }) => {
+    return async (dispatch: any) => {
+        try {
+            dispatch({ type: GET_IMAGES });
+            const images = await ApiConn.get(`./images?pageIndex=${pageIndex}`);
+            const payload = images.data.images;
+            dispatch({ type: GET_IMAGES_SUCESS });
+            dispatch({ type: IMAGES_DATA, payload });
+        } catch (error) {
+            dispatch({ type: GET_IMAGES_FAIL });
+            console.log(error);
+        }
+    };
 };

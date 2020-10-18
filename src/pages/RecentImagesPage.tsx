@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { ImageCard } from '../components/Images/ImageCard';
+import { getImages } from '../ducks/image';
 
 export const RecentImagesPage = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getImages({ pageIndex: 0 }));
+    }, []);
     return (
         <div>
             <ImageCard
