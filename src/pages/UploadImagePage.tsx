@@ -46,12 +46,13 @@ export const UploadImagePage = () => {
                     onChange={formik.handleChange}
                     value={formik.values.title}
                 />
-                <Button variant="contained" component="label" className={classes.formItem}>
-                    Upload File
+                <Button variant="contained" color={'primary'} component="label" className={classes.formItem}>
+                    Select Image
                     <input
                         id="file"
                         name="file"
                         type="file"
+                        accept="image/*"
                         style={{ display: 'none' }}
                         onChange={(event) => {
                             if (event.currentTarget.files) {
@@ -70,6 +71,7 @@ export const UploadImagePage = () => {
                     type="submit"
                     startIcon={<PublishIcon />}
                     className={classes.formItem}
+                    disabled={!formik.values.file || !formik.values.title}
                 >
                     Upload
                 </Button>
