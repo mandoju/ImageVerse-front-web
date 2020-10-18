@@ -1,11 +1,12 @@
 import React from 'react';
 import { AppBar, makeStyles, Toolbar, Typography } from '@material-ui/core';
 import { SITE_NAME } from '../constants/Constants';
-import { GoogleLoginButton } from './Buttons/GoogleLoginButton';
 import { UploadImageButton } from './Buttons/UploadImageButton';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { NavBarUserInfo } from './NavBar/NavBarUserInfo';
 export const NavBar = () => {
     const classes = useStyles();
+    console.log('navbar');
     return (
         <AppBar position="relative">
             <Toolbar>
@@ -15,7 +16,7 @@ export const NavBar = () => {
                     </Typography>
                 </Link>
                 <UploadImageButton />
-                <GoogleLoginButton />
+                <NavBarUserInfo />
             </Toolbar>
         </AppBar>
     );

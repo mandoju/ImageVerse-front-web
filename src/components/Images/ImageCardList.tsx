@@ -18,7 +18,7 @@ export const ImageCardList = ({ images }: ImageCardListProps) => {
         <div className={classes.container}>
             {images.map((image) => {
                 return (
-                    <div className={classes.childContainer}>
+                    <div className={classes.childContainer} key={image.id}>
                         <ImageCard
                             key={image.id}
                             title={image.title}
