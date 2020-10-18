@@ -2,11 +2,6 @@ import React from 'react';
 import { ImageCard } from '../components/Images/ImageCard';
 
 export const RecentImagesPage = () => {
-    // title: string;
-    // imageUrl: string;
-    // creationDate: string;
-    // likeCount: number;
-    // dislikeCount: number;
     return (
         <div>
             <ImageCard
