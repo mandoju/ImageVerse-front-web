@@ -4,6 +4,8 @@ import { useFormik } from 'formik';
 import PublishIcon from '@material-ui/icons/Publish';
 import { useDispatch } from 'react-redux';
 import { uploadImage } from '../ducks/image';
+import { AppDispatch } from '../ducks';
+import { useHistory } from 'react-router-dom';
 
 interface UploadImageFormValues {
     title: string;
@@ -13,7 +15,8 @@ interface UploadImageFormValues {
 
 export const UploadImagePage = () => {
     const classes = useStyles();
-    const dispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch();
+    const history = useHistory();
 
     const formik = useFormik<UploadImageFormValues>({
         initialValues: {
@@ -24,7 +27,9 @@ export const UploadImagePage = () => {
         onSubmit: (values) => {
             const { title, file: image } = values;
             if (image) {
-                dispatch(uploadImage({ title, image }));
+                dispatch(uploadImage({ title, image })).then(() => {
+                    history.push('/');
+                });
             }
         },
     });
