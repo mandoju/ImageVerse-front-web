@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Avatar,
     Card,
@@ -12,6 +12,8 @@ import {
 import { red } from '@material-ui/core/colors';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+//@ts-ignore
+import { Lightbox } from 'react-modal-image';
 
 interface ImageCardProps {
     title: string;
@@ -33,43 +35,59 @@ export const ImageCard = ({
     dislikePress,
 }: ImageCardProps) => {
     const classes = useStyles();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
-        <Card className={classes.root}>
-            <CardHeader
-                avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                        R
-                    </Avatar>
-                }
-                title={title}
-                subheader={creationDate}
-            />
-            <CardMedia className={classes.media} image={imageUrl} title="Image title" />
-            <CardActions disableSpacing>
-                <IconButton aria-label="like" onClick={likePress}>
-                    <ThumbUpIcon />
-                </IconButton>
-                <Typography variant="subtitle1" color="inherit" noWrap>
-                    {likeCount}
-                </Typography>
-                <IconButton aria-label="dislike" onClick={dislikePress}>
-                    <ThumbDownIcon />
-                </IconButton>
-                <Typography variant="subtitle1" color="inherit" noWrap>
-                    {dislikeCount}
-                </Typography>
-            </CardActions>
-        </Card>
+        <div className={classes.root}>
+            <Card className={classes.card}>
+                <CardHeader
+                    avatar={
+                        <Avatar aria-label="recipe" className={classes.avatar}>
+                            R
+                        </Avatar>
+                    }
+                    title={title}
+                    subheader={creationDate}
+                />
+                <CardMedia
+                    className={classes.media}
+                    image={imageUrl}
+                    title="Image title"
+                    onClick={() => setIsModalOpen(true)}
+                />
+                <CardActions disableSpacing>
+                    <IconButton aria-label="like" onClick={likePress}>
+                        <ThumbUpIcon />
+                    </IconButton>
+                    <Typography variant="subtitle1" color="inherit" noWrap>
+                        {likeCount}
+                    </Typography>
+                    <IconButton aria-label="dislike" onClick={dislikePress}>
+                        <ThumbDownIcon />
+                    </IconButton>
+                    <Typography variant="subtitle1" color="inherit" noWrap>
+                        {dislikeCount}
+                    </Typography>
+                </CardActions>
+            </Card>
+            {isModalOpen && <Lightbox large={imageUrl} alt={title} onClose={() => setIsModalOpen(false)} />}
+        </div>
     );
 };
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 345,
+        display: 'flex',
+        flex: 1,
+        justifyContent: 'center',
+    },
+    card: {
+        width: 345,
     },
     media: {
         height: 0,
         paddingTop: '56.25%', // 16:9
+        cursor: 'pointer',
     },
     expand: {
         transform: 'rotate(0deg)',

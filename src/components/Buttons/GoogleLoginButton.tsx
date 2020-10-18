@@ -1,6 +1,7 @@
 import { Button } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { API_URL } from '../../constants/Constants';
+import { getLoggedUser } from '../../utils/Jwt';
 
 export const GoogleLoginButton = () => {
     return (

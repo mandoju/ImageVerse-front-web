@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { PageContainer } from './components/PageContainer';
 import configureStore from './utils/ConfigureStore';
 import { Provider } from 'react-redux';
+import { AppRouter } from './components/AppRouter';
 
 const store = configureStore();
 
@@ -15,7 +16,7 @@ function App() {
             <CssBaseline />
             <BrowserRouter>
                 <PageContainer>
-                    <RecentImagesPage />
+                    <AppRouter />
                 </PageContainer>
             </BrowserRouter>
         </Provider>

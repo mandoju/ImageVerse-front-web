@@ -1,34 +1,16 @@
 import React, { useState } from 'react';
 import PublishIcon from '@material-ui/icons/Publish';
 import { Button, makeStyles, Modal, TextField, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 export const UploadImageButton = () => {
-    const [open, setOpen] = useState(false);
     const classes = useStyles();
     return (
-        <>
-            <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                startIcon={<PublishIcon onClick={() => setOpen(true)} />}
-            >
+        <Link to={'/upload'}>
+            <Button variant="contained" color="primary" className={classes.button} startIcon={<PublishIcon />}>
                 Upload
             </Button>
-            <Modal
-                open={open}
-                onClose={() => setOpen(false)}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
-            >
-                <div className={classes.paper}>
-                    <form noValidate autoComplete="off">
-                        <Typography>Upload Image</Typography>
-                        <TextField id="title" label="Title" variant="outlined" size={'medium'} />
-                    </form>
-                </div>
-            </Modal>
-        </>
+        </Link>
     );
 };
 
