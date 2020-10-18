@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { AnyAction } from 'redux';
 import { Image } from '../models/Image';
 import { ApiConn } from '../utils/apiConn';
@@ -53,13 +54,17 @@ export const getImages = ({ pageIndex }: { pageIndex: number }) => {
 };
 
 export const likeImage = ({ image, type }: { image: Image; type: 'like' | 'dislike' }) => {
-    return async (dispatch: any) => {
+    return async (_: any) => {
         try {
-            const message = await ApiConn.post(`./like/${image.id}`, { type });
-            console.log(message);
+            await ApiConn.post(`./like/${image.id}`, { type });
         } catch (error) {
-            dispatch({ type: GET_IMAGES_FAIL });
-            console.log(error);
+            if ((error as any).isAxiosError) {
+                // check to make sure type assertion is right
+                const e = error as AxiosError;
+                if (e.response?.status === 401) {
+                    return Promise.reject('unauthorized');
+                }
+            }
         }
     };
 };

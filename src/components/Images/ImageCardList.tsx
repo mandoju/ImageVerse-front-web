@@ -22,6 +22,14 @@ export const ImageCardList = ({ images }: ImageCardListProps) => {
                         creationDate={image.creationDate}
                         likeCount={image.likesCount}
                         dislikeCount={image.dislikesCount}
+                        likePress={async () => {
+                            try {
+                                await dispatch(likeImage({ image, type: 'like' }));
+                            } catch (err) {
+                                if (err === 'unauthorized') alert(err);
+                            }
+                        }}
+                        dislikePress={() => dispatch(likeImage({ image, type: 'dislike' }))}
                     />
                 );
             })}
