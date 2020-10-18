@@ -51,3 +51,15 @@ export const getImages = ({ pageIndex }: { pageIndex: number }) => {
         }
     };
 };
+
+export const likeImage = ({ image, type }: { image: Image; type: 'like' | 'dislike' }) => {
+    return async (dispatch: any) => {
+        try {
+            const message = await ApiConn.post(`./like/${image.id}`, { type });
+            console.log(message);
+        } catch (error) {
+            dispatch({ type: GET_IMAGES_FAIL });
+            console.log(error);
+        }
+    };
+};
