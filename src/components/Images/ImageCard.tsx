@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import {
-    Avatar,
-    Card,
-    CardActions,
-    CardHeader,
-    CardMedia,
-    IconButton,
-    makeStyles,
-    Typography,
-} from '@material-ui/core';
+import { Card, CardActions, CardHeader, CardMedia, IconButton, makeStyles, Typography } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';

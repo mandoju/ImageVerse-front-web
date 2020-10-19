@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PublishIcon from '@material-ui/icons/Publish';
-import { Button, makeStyles, Modal, TextField, Typography } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 export const UploadImageButton = () => {

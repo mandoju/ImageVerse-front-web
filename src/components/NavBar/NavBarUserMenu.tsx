@@ -3,14 +3,13 @@ import {
     Grow,
     IconButton,
     makeStyles,
-    Menu,
     MenuItem,
     MenuList,
     Paper,
     Popper,
     Typography,
 } from '@material-ui/core';
-import React, { useState, MouseEvent } from 'react';
+import React from 'react';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { User } from '../../models/User';
 import { API_URL } from '../../constants/Constants';

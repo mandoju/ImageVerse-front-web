@@ -64,7 +64,12 @@ export const UploadImagePage = () => {
                         }}
                     />
                 </Button>
-                <img src={formik.values.fileUrl || ''} width={300} className={classes.formItem} />
+                <img
+                    src={formik.values.fileUrl || ''}
+                    alt={formik.values.title}
+                    width={300}
+                    className={classes.formItem}
+                />
                 <Button
                     variant={'contained'}
                     color={'primary'}

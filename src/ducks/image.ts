@@ -1,10 +1,9 @@
 import { AxiosError } from 'axios';
-import { Action, ActionCreator, AnyAction } from 'redux';
+import { Action, AnyAction } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { ReduxState } from '.';
 import { Image } from '../models/Image';
 import { ApiConn } from '../utils/apiConn';
-import { refreshToken } from '../utils/UserManager';
 import { ImageAddLike, ImageRemoveReaction, ImageAddDislike, getRecentImages } from '../controllers/ImageManager';
 
 const GET_IMAGES = 'get_images';
@@ -66,10 +65,10 @@ export const likeImage = ({
 }): ThunkAction<void, ReduxState, unknown, Action<string>> => {
     return async (dispatch, getState) => {
         try {
-            const resp = await ApiConn.post(`./like/${image.id}`, { type });
+            await ApiConn.post(`./like/${image.id}`, { type });
             const images = getState().image.images;
             const payload = images.map((i) => {
-                if (i.id == image.id) {
+                if (i.id === image.id) {
                     switch (type) {
                         case 'like':
                             return ImageAddLike(i);
