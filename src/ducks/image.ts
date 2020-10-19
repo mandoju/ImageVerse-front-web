@@ -67,7 +67,7 @@ export const getImages = ({
             const oldImages = getState().image.images;
             const payload = pageIndex > 0 ? [...oldImages, ...images] : images;
 
-            if (images && images >= IMAGES_PAGE_SIZE) {
+            if (images && images.length >= IMAGES_PAGE_SIZE) {
                 dispatch({ type: IMAGES_END_REACHED_DATA, payload: false });
             } else {
                 dispatch({ type: IMAGES_END_REACHED_DATA, payload: true });
