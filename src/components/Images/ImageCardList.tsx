@@ -37,23 +37,31 @@ export const ImageCardList = ({ images }: ImageCardListProps) => {
                             likeCount={image.likesCount}
                             dislikeCount={image.dislikesCount}
                             likePress={async () => {
-                                try {
-                                    if (image.liked) {
-                                        return await dispatch(likeImage({ image, type: 'remove' }));
+                                if (user) {
+                                    try {
+                                        if (image.liked) {
+                                            return await dispatch(likeImage({ image, type: 'remove' }));
+                                        }
+                                        return await dispatch(likeImage({ image, type: 'like' }));
+                                    } catch (err) {
+                                        if (err === 'unauthorized') alert(err);
                                     }
-                                    return await dispatch(likeImage({ image, type: 'like' }));
-                                } catch (err) {
-                                    if (err === 'unauthorized') alert(err);
+                                } else {
+                                    alert('You need to be signed in to like');
                                 }
                             }}
                             dislikePress={async () => {
-                                try {
-                                    if (image.disliked) {
-                                        return await dispatch(likeImage({ image, type: 'remove' }));
+                                if (user) {
+                                    try {
+                                        if (image.disliked) {
+                                            return await dispatch(likeImage({ image, type: 'remove' }));
+                                        }
+                                        return await dispatch(likeImage({ image, type: 'dislike' }));
+                                    } catch (err) {
+                                        if (err === 'unauthorized') alert(err);
                                     }
-                                    return await dispatch(likeImage({ image, type: 'dislike' }));
-                                } catch (err) {
-                                    if (err === 'unauthorized') alert(err);
+                                } else {
+                                    alert('You need to be signed in to like');
                                 }
                             }}
                             onImagePress={() => {
