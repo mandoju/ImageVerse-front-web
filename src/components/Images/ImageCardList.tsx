@@ -1,9 +1,10 @@
 import { makeStyles } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { likeImage } from '../../ducks/image';
 import { Image } from '../../models/Image';
 import { ImageCard } from './ImageCard';
+import { ImageModal } from './ImageModal';
 
 interface ImageCardListProps {
     images: Image[];
@@ -12,8 +13,16 @@ interface ImageCardListProps {
 export const ImageCardList = ({ images }: ImageCardListProps) => {
     const dispatch = useDispatch();
     const classes = useStyles();
+    const [openImage, setOpenImage] = useState<Image | undefined>();
+
     return (
         <div className={classes.container}>
+            <ImageModal
+                image={openImage}
+                handleClose={() => {
+                    setOpenImage(undefined);
+                }}
+            />
             {images.map((image) => {
                 return (
                     <div className={classes.childContainer} key={image.id}>
@@ -44,6 +53,9 @@ export const ImageCardList = ({ images }: ImageCardListProps) => {
                                 } catch (err) {
                                     if (err === 'unauthorized') alert(err);
                                 }
+                            }}
+                            onImagePress={() => {
+                                setOpenImage(image);
                             }}
                             liked={image.liked}
                             disliked={image.disliked}

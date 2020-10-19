@@ -12,6 +12,7 @@ interface ImageCardProps {
     creator: string;
     imageUrl: string;
     creationDate: string;
+    onImagePress?: () => void;
     likeCount: number;
     dislikeCount: number;
     likePress?: () => void;
@@ -27,6 +28,7 @@ export const ImageCard = ({
     creator,
     imageUrl,
     creationDate,
+    onImagePress,
     likeCount,
     dislikeCount,
     likePress,
@@ -35,7 +37,6 @@ export const ImageCard = ({
     disliked,
 }: ImageCardProps) => {
     const classes = useStyles();
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
         <div className={classes.root}>
@@ -49,12 +50,7 @@ export const ImageCard = ({
                         </>
                     }
                 />
-                <CardMedia
-                    className={classes.media}
-                    image={imageUrl}
-                    title="Image title"
-                    onClick={() => setIsModalOpen(true)}
-                />
+                <CardMedia className={classes.media} image={imageUrl} title="Image title" onClick={onImagePress} />
                 <CardActions disableSpacing>
                     <IconButton aria-label="like" color={buttonColor(liked)} onClick={likePress}>
                         <ThumbUpIcon />
@@ -70,7 +66,6 @@ export const ImageCard = ({
                     </Typography>
                 </CardActions>
             </Card>
-            {isModalOpen && <Lightbox large={imageUrl} alt={title} onClose={() => setIsModalOpen(false)} />}
         </div>
     );
 };
