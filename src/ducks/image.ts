@@ -55,9 +55,11 @@ export const getImages = ({
     return async (dispatch, getState) => {
         try {
             dispatch({ type: GET_IMAGES });
-            const images = await getRecentImages(pageIndex);
+            const {
+                data: { images },
+            } = await getRecentImages(pageIndex);
             const oldImages = getState().image.images;
-            const payload = [...oldImages, ...images.data.images];
+            const payload = pageIndex > 0 ? [...oldImages, ...images] : images;
             dispatch({ type: GET_IMAGES_SUCESS });
             dispatch({ type: IMAGES_INDEX_DATA, payload: pageIndex });
             dispatch({ type: IMAGES_DATA, payload });

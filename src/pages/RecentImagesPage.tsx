@@ -14,7 +14,7 @@ export const RecentImagesPage = () => {
     const pageIndex = useSelector<ReduxState, number>((state) => state.image.pageIndex);
 
     useEffect(() => {
-        if (images.length < 1) dispatch(getImages({ pageIndex }));
+        dispatch(getImages({ pageIndex }));
     }, [dispatch]);
     return (
         <div>
