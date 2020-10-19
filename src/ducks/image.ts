@@ -121,7 +121,7 @@ export const likeImage = ({
 };
 
 export const uploadImage = ({ title, image }: { title: string; image: File }) => {
-    return async (_: any) => {
+    return async () => {
         try {
             const formData = new FormData();
             formData.append('title', title);
@@ -131,10 +131,16 @@ export const uploadImage = ({ title, image }: { title: string; image: File }) =>
             if ((error as any).isAxiosError) {
                 // check to make sure type assertion is right
                 const e = error as AxiosError;
-                if (e.response?.status === 401) {
-                    return Promise.reject('unauthorized');
+                switch (e.response?.status) {
+                    case 401:
+                        throw new Error('Unauthorized, please sign in');
+                    case 422:
+                        throw new Error(e.response?.data.message);
+                    default:
+                        throw new Error('Unknown Error');
                 }
             }
+            throw new Error('Unknown Error');
         }
     };
 };
