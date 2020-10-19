@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { API_URL } from '../constants/Constants';
+import { API_URL, APP_DOMAIN } from '../constants/Constants';
 import { getLoggedUser } from './Jwt';
 
 export const refreshToken = async () => {
@@ -18,5 +18,5 @@ export const refreshToken = async () => {
         }),
     });
     const resJson = await res.json();
-    Cookies.set('jwt', resJson.jwt);
+    if (resJson.jwt) Cookies.set('jwt', resJson.jwt, { domain: APP_DOMAIN });
 };

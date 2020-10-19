@@ -1,6 +1,6 @@
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import Cookies from 'js-cookie';
-import { API_URL } from '../constants/Constants';
+import { API_URL, APP_DOMAIN } from '../constants/Constants';
 import { getLoggedUser } from './Jwt';
 
 export const ApiConn = axios.create({ baseURL: API_URL, withCredentials: true });
@@ -35,7 +35,7 @@ ApiConn.interceptors.response.use(
                 })
                     .then((res) => res.json())
                     .then((res) => {
-                        Cookies.set('jwt', res.jwt);
+                        if (res.jwt) Cookies.set('jwt', res.jwt, { domain: APP_DOMAIN });
                         return axios(originalReq);
                     });
 
