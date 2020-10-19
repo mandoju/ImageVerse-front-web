@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardActions, CardHeader, CardMedia, IconButton, makeStyles, Typography } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import TrashIcon from '@material-ui/icons/DeleteForever';
-//@ts-ignore
-import { Lightbox } from 'react-modal-image';
 import moment from 'moment';
 
 interface ImageCardProps {

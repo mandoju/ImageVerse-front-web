@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteImage, likeImage } from '../../ducks/image';
 import { Image } from '../../models/Image';

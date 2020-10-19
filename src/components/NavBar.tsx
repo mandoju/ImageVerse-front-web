@@ -1,7 +1,6 @@
 import React from 'react';
 import { AppBar, makeStyles, Toolbar, Typography } from '@material-ui/core';
 import { SITE_NAME } from '../constants/Constants';
-import { UploadImageButton } from './Buttons/UploadImageButton';
 import { Link } from 'react-router-dom';
 import { NavBarUserInfo } from './NavBar/NavBarUserInfo';
 export const NavBar = () => {

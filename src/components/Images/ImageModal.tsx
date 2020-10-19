@@ -10,7 +10,7 @@ import {
     Slide,
 } from '@material-ui/core';
 import { TransitionProps } from '@material-ui/core/transitions/transition';
-import React, { ImgHTMLAttributes, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import ClockIcon from '@material-ui/icons/AccessTime';
 import { Image } from '../../models/Image';
