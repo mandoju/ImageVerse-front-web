@@ -6,7 +6,7 @@ export const getRecentImages = async (pageIndex: number) => {
     try {
         await refreshToken();
     } catch (error) {}
-    const images = await ApiConn.get(`./images?pageIndex=${pageIndex}`);
+    const images = await ApiConn.get(`./images?page=${pageIndex}`);
     return images;
 };
 
