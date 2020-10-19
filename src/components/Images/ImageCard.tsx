@@ -14,9 +14,11 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 //@ts-ignore
 import { Lightbox } from 'react-modal-image';
+import moment from 'moment';
 
 interface ImageCardProps {
     title: string;
+    creator: string;
     imageUrl: string;
     creationDate: string;
     likeCount: number;
@@ -31,6 +33,7 @@ const buttonColor = (value?: boolean) => (value ? 'primary' : 'inherit');
 
 export const ImageCard = ({
     title,
+    creator,
     imageUrl,
     creationDate,
     likeCount,
@@ -47,13 +50,13 @@ export const ImageCard = ({
         <div className={classes.root}>
             <Card className={classes.card}>
                 <CardHeader
-                    avatar={
-                        <Avatar aria-label="recipe" className={classes.avatar}>
-                            R
-                        </Avatar>
-                    }
                     title={title}
-                    subheader={creationDate}
+                    subheader={
+                        <>
+                            <Typography>{creator}</Typography>
+                            <Typography>{moment(creationDate).format('MM/DD/YYYY')}</Typography>
+                        </>
+                    }
                 />
                 <CardMedia
                     className={classes.media}

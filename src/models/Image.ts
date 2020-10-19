@@ -4,7 +4,11 @@ export interface Image {
     url: string;
     likesCount: number;
     dislikesCount: number;
-    creationDate: string;
+    createdAt: string;
     liked?: boolean;
     disliked?: boolean;
+    User: {
+        id: number;
+        name: string;
+    };
 }

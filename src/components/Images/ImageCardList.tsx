@@ -22,8 +22,9 @@ export const ImageCardList = ({ images }: ImageCardListProps) => {
                         <ImageCard
                             key={image.id}
                             title={image.title}
+                            creator={image.User.name}
                             imageUrl={image.url}
-                            creationDate={image.creationDate}
+                            creationDate={image.createdAt}
                             likeCount={image.likesCount}
                             dislikeCount={image.dislikesCount}
                             likePress={async () => {
