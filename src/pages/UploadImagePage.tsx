@@ -27,9 +27,11 @@ export const UploadImagePage = () => {
         onSubmit: (values) => {
             const { title, file: image } = values;
             if (image) {
-                dispatch(uploadImage({ title, image })).then(() => {
-                    history.push('/');
-                });
+                dispatch(uploadImage({ title, image }))
+                    .then(() => {
+                        history.push('/');
+                    })
+                    .catch((error) => alert(error));
             }
         },
     });
