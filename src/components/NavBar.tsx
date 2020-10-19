@@ -14,7 +14,6 @@ export const NavBar = () => {
                         {SITE_NAME}
                     </Typography>
                 </Link>
-                <UploadImageButton />
                 <NavBarUserInfo />
             </Toolbar>
         </AppBar>
