@@ -1,8 +1,9 @@
 import { makeStyles } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { likeImage } from '../../ducks/image';
+import { deleteImage, likeImage } from '../../ducks/image';
 import { Image } from '../../models/Image';
+import { getLoggedUser } from '../../utils/Jwt';
 import { ImageCard } from './ImageCard';
 import { ImageModal } from './ImageModal';
 
@@ -14,6 +15,7 @@ export const ImageCardList = ({ images }: ImageCardListProps) => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const [openImage, setOpenImage] = useState<Image | undefined>();
+    const user = getLoggedUser();
 
     return (
         <div className={classes.container}>
@@ -59,6 +61,9 @@ export const ImageCardList = ({ images }: ImageCardListProps) => {
                             }}
                             liked={image.liked}
                             disliked={image.disliked}
+                            deletePress={
+                                image.User.id === user?.data.id ? () => dispatch(deleteImage({ image })) : undefined
+                            }
                         />
                     </div>
                 );

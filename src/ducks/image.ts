@@ -4,7 +4,13 @@ import { ThunkAction } from 'redux-thunk';
 import { ReduxState } from '.';
 import { Image } from '../models/Image';
 import { ApiConn } from '../utils/apiConn';
-import { ImageAddLike, ImageRemoveReaction, ImageAddDislike, getRecentImages } from '../controllers/ImageManager';
+import {
+    ImageAddLike,
+    ImageRemoveReaction,
+    ImageAddDislike,
+    getRecentImages,
+    deleteImageById,
+} from '../controllers/ImageManager';
 
 const GET_IMAGES = 'get_images';
 const GET_IMAGES_SUCESS = 'get_images_sucess';
@@ -114,6 +120,21 @@ export const uploadImage = ({ title, image }: { title: string; image: File }) =>
                     return Promise.reject('unauthorized');
                 }
             }
+        }
+    };
+};
+
+export const deleteImage = ({ image }: { image: Image }): ThunkAction<void, ReduxState, unknown, Action<string>> => {
+    return async (dispatch, getState) => {
+        try {
+            await deleteImageById(image.id);
+            const oldImages = getState().image.images;
+            const payload = oldImages.filter((i) => i.id !== image.id);
+            dispatch({ type: IMAGES_DATA, payload });
+            console.log(payload);
+        } catch (error) {
+            dispatch({ type: GET_IMAGES_FAIL });
+            console.log(error);
         }
     };
 };

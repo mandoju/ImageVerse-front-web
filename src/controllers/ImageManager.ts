@@ -10,6 +10,10 @@ export const getRecentImages = async (pageIndex: number) => {
     return images;
 };
 
+export const deleteImageById = async (imageId: number) => {
+    await ApiConn.delete(`./images/${imageId}`);
+};
+
 export const ImageAddLike = (image: Image): Image => {
     const likesCount = image.liked === true ? image.likesCount : image.likesCount + 1;
     const dislikesCount = image.disliked === true ? image.dislikesCount - 1 : image.dislikesCount;

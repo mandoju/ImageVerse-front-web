@@ -3,6 +3,7 @@ import { Card, CardActions, CardHeader, CardMedia, IconButton, makeStyles, Typog
 import { red } from '@material-ui/core/colors';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import TrashIcon from '@material-ui/icons/DeleteForever';
 //@ts-ignore
 import { Lightbox } from 'react-modal-image';
 import moment from 'moment';
@@ -19,6 +20,7 @@ interface ImageCardProps {
     dislikePress?: () => void;
     liked?: boolean;
     disliked?: boolean;
+    deletePress?: () => void;
 }
 
 const buttonColor = (value?: boolean) => (value ? 'primary' : 'inherit');
@@ -35,6 +37,7 @@ export const ImageCard = ({
     dislikePress,
     liked,
     disliked,
+    deletePress,
 }: ImageCardProps) => {
     const classes = useStyles();
 
@@ -52,18 +55,25 @@ export const ImageCard = ({
                 />
                 <CardMedia className={classes.media} image={imageUrl} title="Image title" onClick={onImagePress} />
                 <CardActions disableSpacing>
-                    <IconButton aria-label="like" color={buttonColor(liked)} onClick={likePress}>
-                        <ThumbUpIcon />
-                    </IconButton>
-                    <Typography variant="subtitle1" color="inherit" noWrap>
-                        {likeCount}
-                    </Typography>
-                    <IconButton aria-label="dislike" color={buttonColor(disliked)} onClick={dislikePress}>
-                        <ThumbDownIcon />
-                    </IconButton>
-                    <Typography variant="subtitle1" color="inherit" noWrap>
-                        {dislikeCount}
-                    </Typography>
+                    <div className={classes.startIcons}>
+                        <IconButton aria-label="like" color={buttonColor(liked)} onClick={likePress}>
+                            <ThumbUpIcon />
+                        </IconButton>
+                        <Typography variant="subtitle1" color="inherit" noWrap>
+                            {likeCount}
+                        </Typography>
+                        <IconButton aria-label="dislike" color={buttonColor(disliked)} onClick={dislikePress}>
+                            <ThumbDownIcon />
+                        </IconButton>
+                        <Typography variant="subtitle1" color="inherit" noWrap>
+                            {dislikeCount}
+                        </Typography>
+                    </div>
+                    {deletePress ? (
+                        <IconButton aria-label="delete" color={'secondary'} onClick={deletePress}>
+                            <TrashIcon />
+                        </IconButton>
+                    ) : null}
                 </CardActions>
             </Card>
         </div>
@@ -96,5 +106,10 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
         backgroundColor: red[500],
+    },
+    startIcons: {
+        display: 'flex',
+        alignItems: 'center',
+        flexGrow: 1,
     },
 }));

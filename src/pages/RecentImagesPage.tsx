@@ -1,4 +1,3 @@
-import classes from '*.module.css';
 import { Button, createStyles, makeStyles } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
