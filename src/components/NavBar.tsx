@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { NavBarUserInfo } from './NavBar/NavBarUserInfo';
 export const NavBar = () => {
     const classes = useStyles();
-    console.log('navbar');
     return (
         <AppBar position="relative">
             <Toolbar>

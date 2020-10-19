@@ -1,8 +1,11 @@
 import { AxiosError } from 'axios';
-import { AnyAction } from 'redux';
+import { Action, ActionCreator, AnyAction } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import { ReduxState } from '.';
 import { Image } from '../models/Image';
 import { ApiConn } from '../utils/apiConn';
 import { refreshToken } from '../utils/UserManager';
+import { ImageAddLike, ImageRemoveReaction, ImageAddDislike, getRecentImages } from '../controllers/ImageManager';
 
 const GET_IMAGES = 'get_images';
 const GET_IMAGES_SUCESS = 'get_images_sucess';
@@ -43,8 +46,7 @@ export const getImages = ({ pageIndex }: { pageIndex: number }) => {
     return async (dispatch: any) => {
         try {
             dispatch({ type: GET_IMAGES });
-            await refreshToken();
-            const images = await ApiConn.get(`./images?pageIndex=${pageIndex}`);
+            const images = await getRecentImages(pageIndex);
             const payload = images.data.images;
             dispatch({ type: GET_IMAGES_SUCESS });
             dispatch({ type: IMAGES_DATA, payload });
@@ -55,10 +57,31 @@ export const getImages = ({ pageIndex }: { pageIndex: number }) => {
     };
 };
 
-export const likeImage = ({ image, type }: { image: Image; type: 'like' | 'dislike' }) => {
-    return async (_: any) => {
+export const likeImage = ({
+    image,
+    type,
+}: {
+    image: Image;
+    type: 'like' | 'dislike' | 'remove';
+}): ThunkAction<void, ReduxState, unknown, Action<string>> => {
+    return async (dispatch, getState) => {
         try {
-            await ApiConn.post(`./like/${image.id}`, { type });
+            const resp = await ApiConn.post(`./like/${image.id}`, { type });
+            const images = getState().image.images;
+            const payload = images.map((i) => {
+                if (i.id == image.id) {
+                    switch (type) {
+                        case 'like':
+                            return ImageAddLike(i);
+                        case 'dislike':
+                            return ImageAddDislike(i);
+                        default:
+                            return ImageRemoveReaction(i);
+                    }
+                }
+                return i;
+            });
+            dispatch({ type: IMAGES_DATA, payload });
         } catch (error) {
             if ((error as any).isAxiosError) {
                 // check to make sure type assertion is right

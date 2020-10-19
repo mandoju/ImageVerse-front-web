@@ -28,12 +28,24 @@ export const ImageCardList = ({ images }: ImageCardListProps) => {
                             dislikeCount={image.dislikesCount}
                             likePress={async () => {
                                 try {
-                                    await dispatch(likeImage({ image, type: 'like' }));
+                                    if (image.liked) {
+                                        return await dispatch(likeImage({ image, type: 'remove' }));
+                                    }
+                                    return await dispatch(likeImage({ image, type: 'like' }));
                                 } catch (err) {
                                     if (err === 'unauthorized') alert(err);
                                 }
                             }}
-                            dislikePress={() => dispatch(likeImage({ image, type: 'dislike' }))}
+                            dislikePress={async () => {
+                                try {
+                                    if (image.disliked) {
+                                        return await dispatch(likeImage({ image, type: 'remove' }));
+                                    }
+                                    return await dispatch(likeImage({ image, type: 'dislike' }));
+                                } catch (err) {
+                                    if (err === 'unauthorized') alert(err);
+                                }
+                            }}
                             liked={image.liked}
                             disliked={image.disliked}
                         />
