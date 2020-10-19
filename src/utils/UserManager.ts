@@ -1,9 +1,10 @@
+import Cookies from 'js-cookie';
 import { API_URL } from '../constants/Constants';
 import { getLoggedUser } from './Jwt';
 
 export const refreshToken = async () => {
     const user = getLoggedUser();
-    await fetch(`${API_URL}auth/token`, {
+    const res = await fetch(`${API_URL}auth/token`, {
         method: 'POST',
         mode: 'cors',
         cache: 'no-cache',
@@ -16,4 +17,6 @@ export const refreshToken = async () => {
             userId: user.data.id,
         }),
     });
+    const resJson = await res.json();
+    Cookies.set('jwt', resJson.jwt);
 };

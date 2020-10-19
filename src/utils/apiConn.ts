@@ -1,4 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from 'axios';
+import Cookies from 'js-cookie';
 import { API_URL } from '../constants/Constants';
 import { getLoggedUser } from './Jwt';
 
@@ -34,6 +35,7 @@ ApiConn.interceptors.response.use(
                 })
                     .then((res) => res.json())
                     .then((res) => {
+                        Cookies.set('jwt', res.jwt);
                         return axios(originalReq);
                     });
 
