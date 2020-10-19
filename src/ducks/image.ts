@@ -41,13 +41,19 @@ export default (state = INITIAL_STATE, action: AnyAction): ImageState => {
     }
 };
 
-export const getImages = ({ pageIndex }: { pageIndex: number }) => {
-    return async (dispatch: any) => {
+export const getImages = ({
+    pageIndex,
+}: {
+    pageIndex: number;
+}): ThunkAction<void, ReduxState, unknown, Action<string>> => {
+    return async (dispatch, getState) => {
         try {
             dispatch({ type: GET_IMAGES });
             const images = await getRecentImages(pageIndex);
-            const payload = images.data.images;
+            const oldImages = getState().image.images;
+            const payload = [...oldImages, ...images.data.images];
             dispatch({ type: GET_IMAGES_SUCESS });
+            dispatch({ type: IMAGES_INDEX_DATA, payload: pageIndex });
             dispatch({ type: IMAGES_DATA, payload });
         } catch (error) {
             dispatch({ type: GET_IMAGES_FAIL });
