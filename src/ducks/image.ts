@@ -11,23 +11,27 @@ import {
     getRecentImages,
     deleteImageById,
 } from '../controllers/ImageManager';
+import { IMAGES_PAGE_SIZE } from '../constants/Constants';
 
 const GET_IMAGES = 'get_images';
 const GET_IMAGES_SUCESS = 'get_images_sucess';
 const GET_IMAGES_FAIL = 'get_images_fail';
 const IMAGES_DATA = 'images_data';
 const IMAGES_INDEX_DATA = 'images_index_data';
+const IMAGES_END_REACHED_DATA = 'images_end_reached_data';
 
 interface ImageState {
     images: Image[];
     pageIndex: number;
     imagesError: boolean;
+    endReached: boolean;
 }
 
 const INITIAL_STATE: ImageState = {
     images: [],
     pageIndex: 0,
     imagesError: false,
+    endReached: false,
 };
 
 export default (state = INITIAL_STATE, action: AnyAction): ImageState => {
@@ -42,6 +46,8 @@ export default (state = INITIAL_STATE, action: AnyAction): ImageState => {
             return { ...state, images: action.payload };
         case IMAGES_INDEX_DATA:
             return { ...state, pageIndex: action.payload };
+        case IMAGES_END_REACHED_DATA:
+            return { ...state, endReached: action.payload };
         default:
             return state;
     }
@@ -60,6 +66,13 @@ export const getImages = ({
             } = await getRecentImages(pageIndex);
             const oldImages = getState().image.images;
             const payload = pageIndex > 0 ? [...oldImages, ...images] : images;
+
+            if (images && images >= IMAGES_PAGE_SIZE) {
+                dispatch({ type: IMAGES_END_REACHED_DATA, payload: false });
+            } else {
+                dispatch({ type: IMAGES_END_REACHED_DATA, payload: true });
+            }
+
             dispatch({ type: GET_IMAGES_SUCESS });
             dispatch({ type: IMAGES_INDEX_DATA, payload: pageIndex });
             dispatch({ type: IMAGES_DATA, payload });

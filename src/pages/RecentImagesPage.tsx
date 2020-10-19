@@ -1,6 +1,7 @@
-import { Button, createStyles, makeStyles } from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { LoadMoreButton } from '../components/Buttons/LoadMoreButton';
 import { ImageCardList } from '../components/Images/ImageCardList';
 import { ReduxState } from '../ducks';
 import { getImages } from '../ducks/image';
@@ -14,21 +15,14 @@ export const RecentImagesPage = () => {
     const pageIndex = useSelector<ReduxState, number>((state) => state.image.pageIndex);
 
     useEffect(() => {
-        dispatch(getImages({ pageIndex }));
+        dispatch(getImages({ pageIndex: 0 }));
     }, [dispatch]);
     return (
         <div>
             <ImageCardList images={images} />
             <div className={classes.footerContainer}>
                 <div className={classes.buttonContainer}>
-                    <Button
-                        variant="contained"
-                        color={'primary'}
-                        className={classes.button}
-                        onClick={() => dispatch(getImages({ pageIndex: pageIndex + 1 }))}
-                    >
-                        Load More
-                    </Button>
+                    <LoadMoreButton pageIndex={pageIndex} />
                 </div>
             </div>
         </div>
@@ -45,9 +39,6 @@ const useStyles = makeStyles((theme) =>
             display: 'flex',
             justifyContent: 'center',
             width: '50%',
-        },
-        button: {
-            flex: '1 0',
         },
     }),
 );
