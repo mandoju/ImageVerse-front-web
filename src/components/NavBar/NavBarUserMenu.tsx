@@ -12,9 +12,10 @@ import {
 import React from 'react';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { User } from '../../models/User';
-import { API_URL } from '../../constants/Constants';
+import { API_URL, APP_DOMAIN } from '../../constants/Constants';
 import { ApiConn } from '../../utils/apiConn';
 import { UploadImageButton } from '../Buttons/UploadImageButton';
+import Cookies from 'js-cookie';
 
 export const NavBarUserMenu = ({ user }: { user: User }) => {
     const classes = useStyles();
@@ -74,7 +75,10 @@ export const NavBarUserMenu = ({ user }: { user: User }) => {
                                 <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                                     <MenuItem
                                         onClick={async () => {
-                                            await ApiConn.post(`./auth/token`, { userId: user.id });
+                                            const res = await ApiConn.post<{ jwt: string }>(`./auth/token`, {
+                                                userId: user.id,
+                                            });
+                                            Cookies.set('jwt', res.data.jwt, { domain: APP_DOMAIN });
                                             window.open(`${API_URL}auth/logout`, '_self');
                                         }}
                                     >

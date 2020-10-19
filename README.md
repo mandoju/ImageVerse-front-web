@@ -10,3 +10,11 @@ This project was reacted with [Create React App](https://github.com/facebook/cre
 
 this project expects that [ImageVerse Backend Api]() is running at ``http://localhost:8000``, but it **can be change using REACT_APP_API_URL enviroment variable** 
 
+## Enviroment Variables
+This project uses two enviroments variables: 
+
+- REACT_APP_API_URL : imageverse backend api address
+- REACT_APP_DOMAIN : Domain where frontend is hosted
+
+
+

@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) =>
     createStyles({
         button: {
             flex: '1 0',
+            margin: theme.spacing(2),
         },
     }),
 );
